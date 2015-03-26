@@ -38,7 +38,7 @@
     <div id="camera" class="threed" ng-show="is_editor_visible">
       <textarea class="threed mousetrap" ng-repeat="file in sketch.files" ng-model="file.contents" spellcheck="false">
       </textarea>
-      <button class="alert alert-info" onclick="alert('test')">Update</button>
+      <button class="alert alert-info" ng-click="sketch.getCode()">Update</button>
       <span class="threed alert alert-warning" ng-show="error">{{error}}</span>
     </div>
   </div>

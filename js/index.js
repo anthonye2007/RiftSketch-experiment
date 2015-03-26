@@ -94,6 +94,7 @@
     ];
   };
   constr.prototype.getCode = function () {
+   console.log('getting code');
    var code = '';
    for (var i = 0; i < this.files.length; i++) {
     code += this.files[i].contents;
@@ -449,6 +450,7 @@
     this.mainLoop();
 
     $scope.updateCode = function (code) {
+     console.log("updating code");
      this.riftSandbox.clearScene();
      var _sketchLoop;
      $scope.error = null;
@@ -470,7 +472,7 @@
      localStorage.setItem('autosave', code);
     };
 
-    $scope.$watch('sketch.getCode()', $scope.updateCode.bind(this));
+    //$scope.$watch('sketch.getCode()', $scope.updateCode.bind(this));
 
   }]); // end controller
 }());
