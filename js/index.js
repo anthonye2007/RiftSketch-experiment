@@ -406,6 +406,10 @@
       this.altPressed = false;
       return false;
      }.bind(this), 'keyup');
+     Mousetrap.bind('ctrl+enter', function () {
+      $scope.updateCode($scope.sketch.getCode());
+      return false;
+     }.bind(this), 'keyup');
     }.bind(this);
     this.bindKeyboardShortcuts();
 
