@@ -407,7 +407,11 @@
       return false;
      }.bind(this), 'keyup');
      Mousetrap.bind('ctrl+enter', function () {
-      $scope.updateCode($scope.sketch.getCode());
+      // introduce delay
+      setTimeout(function () {
+       $scope.updateCode($scope.sketch.getCode());
+       $scope.$apply();
+      }, 2000);
       return false;
      }.bind(this), 'keyup');
     }.bind(this);
