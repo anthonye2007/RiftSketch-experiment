@@ -450,7 +450,7 @@
     this.mainLoop();
 
     $scope.updateCode = function (code) {
-     console.log("updating code");
+     console.log("code: " + code);
      this.riftSandbox.clearScene();
      var _sketchLoop;
      $scope.error = null;
@@ -470,7 +470,7 @@
       this.sketchLoop = _sketchLoop;
      }
      localStorage.setItem('autosave', code);
-    };
+    }.bind(this);
 
     //$scope.$watch('sketch.getCode()', $scope.updateCode.bind(this));
 
