@@ -2,6 +2,9 @@
 (function () {
  'use strict';
 
+ /**
+  * Files can be displayed in the user editor within RiftSketch
+  */
  var File = (function () {
   var constr = function (name, contents) {
    this.name = name || 'Example';
@@ -48,6 +51,8 @@
    this.contents = contents === undefined ? defaultContents : contents;
    this.selected = true;
   };
+
+  /** Modify values **/
   constr.prototype.findNumberAt = function (index) {
    return this.contents.substring(index).match(/-?\d+\.?\d*/)[0];
   };
@@ -80,6 +85,7 @@
   return constr;
  }());
 
+ /** Create Sketch object to handle files. **/
  var Sketch = (function () {
   var constr = function (name, files) {
    this.name = name || 'Example Sketch';
@@ -99,6 +105,8 @@
   };
   return constr;
  }());
+
+ /** Logic in SketchController **/
 
  angular.module('index', [])
   .controller('SketchController', ['$scope',
@@ -277,6 +285,8 @@
      false
     );
 
+
+    /** Keyboard shortcuts **/
     $scope.is_editor_visible = true;
     var domElement = this.riftSandbox.container;
     this.bindKeyboardShortcuts = function () {
@@ -445,7 +455,7 @@
     this.deviceManager.init();
     this.mainLoop();
 
-    $scope.$watch('sketch.getCode()', function (code) {
+    var updateCode = function (code) {
      this.riftSandbox.clearScene();
      var _sketchLoop;
      $scope.error = null;
@@ -465,6 +475,9 @@
       this.sketchLoop = _sketchLoop;
      }
      localStorage.setItem('autosave', code);
-    }.bind(this));
+    };
+
+    $scope.$watch('sketch.getCode()', updateCode.bind(this));
+
   }]);
 }());
