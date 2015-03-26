@@ -38,13 +38,7 @@
     <div id="camera" class="threed" ng-show="is_editor_visible">
       <textarea class="threed mousetrap" ng-repeat="file in sketch.files" ng-model="file.contents" spellcheck="false">
       </textarea>
-      <span class="threed alert alert-info">
-          Alt + v - toggle VR | Alt + z - zero VR sensor<br />
-          Alt + e - toggle editor |
-          Alt + j/k, u/i, m/n - decrement or increment numbers
-        </span>
       <span class="threed alert alert-warning" ng-show="error">{{error}}</span>
-      <video id="monitor" class="threed" autoplay></video>
     </div>
   </div>
 
@@ -60,8 +54,7 @@
           <p>It seems your browser doesn't support the required WebVR features. Please read the
             <a href="https://github.com/brianpeiris/RiftSketch/blob/gh-pages/README.md">
               setup instructions
-            </a>
-            if you would like to try RiftSketch.</p>
+            </a> if you would like to try RiftSketch.</p>
 
           <iframe width="560" height="315" src="//www.youtube.com/embed/db-7J5OaSag" frameborder="0" allowfullscreen>
           </iframe>
@@ -81,7 +74,7 @@
         (i[r].q = i[r].q || []).push(arguments)
       }, i[r].l = 1 * new Date();
       a = s.createElement(o),
-      m = s.getElementsByTagName(o)[0];
+        m = s.getElementsByTagName(o)[0];
       a.async = 1;
       a.src = g;
       m.parentNode.insertBefore(a, m)
