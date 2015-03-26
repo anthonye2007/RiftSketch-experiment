@@ -174,12 +174,6 @@
       this.riftSandbox.updateCameraPositionRotation();
      }
 
-     for (var i = 0; i < this.riftSandbox.sceneStuff.length; i++) {
-      if (this.riftSandbox.sceneStuff[i].name) {
-       console.log(this.riftSandbox.sceneStuff[i].name);
-      }
-     }
-
      try {
       this.sketchLoop();
      } catch (err) {
