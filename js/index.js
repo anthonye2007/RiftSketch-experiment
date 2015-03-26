@@ -142,8 +142,6 @@
 
     this.sketchLoop = function () {};
 
-    var iCounter = 0;
-
     this.mainLoop = function () {
      window.requestAnimationFrame(this.mainLoop.bind(this));
      // HACK: I really need to turn this DOM manipulation into a directive.
@@ -167,12 +165,6 @@
       this.riftSandbox.setBaseRotation();
       this.riftSandbox.updateCameraPositionRotation();
      }
-
-     /*if (iCounter % 500 === 0) {
-      console.log("Scenestuff length: " + this.riftSandbox.sceneStuff.length);
-      console.log(this.riftSandbox.sceneStuff[0]);
-     }
-     iCounter++;*/
 
      for (var i = 0; i < this.riftSandbox.sceneStuff.length; i++) {
       if (this.riftSandbox.sceneStuff[i].name) {
@@ -231,18 +223,18 @@
     this.handStart = this.handCurrent = null;
     this.altPressed = this.shiftPressed = false;
     Leap.loop({}, function (frame) {
-     if (frame.hands.length) {
-      this.handCurrent = frame;
-      if (this.altPressed && this.handStart) {
-       var hand = frame.hands[0];
-       var handTranslation = hand.translation(this.handStart);
-       var factor = this.shiftPressed ? 10 : 100;
-       var offset = Math.round(handTranslation[1] / factor * 1000) / 1000;
-       offsetNumberAndKeepSelection(offset);
+      if (frame.hands.length) {
+       this.handCurrent = frame;
+       if (this.altPressed && this.handStart) {
+        var hand = frame.hands[0];
+        var handTranslation = hand.translation(this.handStart);
+        var factor = this.shiftPressed ? 10 : 100;
+        var offset = Math.round(handTranslation[1] / factor * 1000) / 1000;
+        offsetNumberAndKeepSelection(offset);
+       }
       }
-     }
-     this.previousFrame = frame;
-    }.bind(this))
+      this.previousFrame = frame;
+     }.bind(this))
      .use('transform', {
       quaternion: new THREE.Quaternion,
       position: new THREE.Vector3,
