@@ -31,26 +31,28 @@ var RiftSandbox = (function () {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(
-      75, this.width / this.height, 0.1, 1000 );
+      75, this.width / this.height, 0.1, 1000);
     this.camera.position.copy(this.BasePosition);
 
     this.cameraPivot = new THREE.Object3D();
     this.scene.add(this.cameraPivot);
 
-    this.cameraLeft = new THREE.PerspectiveCamera(75, 4/3, 0.1, 1000);
-    this.cameraPivot.add( this.cameraLeft );
+    this.cameraLeft = new THREE.PerspectiveCamera(75, 4 / 3, 0.1, 1000);
+    this.cameraPivot.add(this.cameraLeft);
 
-    this.cameraRight = new THREE.PerspectiveCamera(75, 4/3, 0.1, 1000);
-    this.cameraPivot.add( this.cameraRight );
+    this.cameraRight = new THREE.PerspectiveCamera(75, 4 / 3, 0.1, 1000);
+    this.cameraPivot.add(this.cameraRight);
 
     var maxAnisotropy = this.renderer.getMaxAnisotropy();
-    var groundTexture = THREE.ImageUtils.loadTexture('img/background.png');
+    var groundTexture = THREE.ImageUtils.loadTexture('img/white.png');
     groundTexture.anisotropy = maxAnisotropy;
     groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-    groundTexture.repeat.set( 1000, 1000 );
+    groundTexture.repeat.set(1000, 1000);
     var ground = new THREE.Mesh(
-      new THREE.PlaneGeometry( 1000, 1000 ),
-      new THREE.MeshBasicMaterial({map: groundTexture}) );
+      new THREE.PlaneGeometry(1000, 1000),
+      new THREE.MeshBasicMaterial({
+        map: groundTexture
+      }));
     ground.rotation.x = -Math.PI / 2;
     this.scene.add(ground);
 
@@ -69,10 +71,10 @@ var RiftSandbox = (function () {
   function perspectiveMatrixFromVRFieldOfView(fov, zNear, zFar) {
     var outMat = new THREE.Matrix4();
     var out = outMat.elements;
-    var upTan = Math.tan(fov.upDegrees * Math.PI/180.0);
-    var downTan = Math.tan(fov.downDegrees * Math.PI/180.0);
-    var leftTan = Math.tan(fov.leftDegrees * Math.PI/180.0);
-    var rightTan = Math.tan(fov.rightDegrees * Math.PI/180.0);
+    var upTan = Math.tan(fov.upDegrees * Math.PI / 180.0);
+    var downTan = Math.tan(fov.downDegrees * Math.PI / 180.0);
+    var leftTan = Math.tan(fov.leftDegrees * Math.PI / 180.0);
+    var rightTan = Math.tan(fov.rightDegrees * Math.PI / 180.0);
 
     var xScale = 2.0 / (leftTan + rightTan);
     var yScale = 2.0 / (upTan + downTan);
@@ -111,35 +113,34 @@ var RiftSandbox = (function () {
 
   // Utility function
   function angleRangeDeg(angle) {
-    while (angle >= 360) angle -=360;
-    while (angle < 0) angle +=360;
+    while (angle >= 360) angle -= 360;
+    while (angle < 0) angle += 360;
     return angle;
   }
 
   function angleRangeRad(angle) {
-    while (angle > Math.PI) angle -= 2*Math.PI;
-    while (angle <= -Math.PI) angle += 2*Math.PI;
+    while (angle > Math.PI) angle -= 2 * Math.PI;
+    while (angle <= -Math.PI) angle += 2 * Math.PI;
     return angle;
   }
 
-  function deltaAngleDeg(a,b) {
-    return Math.min(360-(Math.abs(a-b)%360),Math.abs(a-b)%360);
+  function deltaAngleDeg(a, b) {
+    return Math.min(360 - (Math.abs(a - b) % 360), Math.abs(a - b) % 360);
   }
 
   constr.prototype.setBaseRotation = function () {
     this.BaseRotationEuler.set(
       angleRangeRad(this.BaseRotationEuler.x),
-      angleRangeRad(this.BaseRotationEuler.y), 0.0 );
+      angleRangeRad(this.BaseRotationEuler.y), 0.0);
     this.BaseRotation.setFromEuler(this.BaseRotationEuler, 'YZX');
   };
 
   constr.prototype.initWebGL = function () {
     try {
       this.renderer = new THREE.WebGLRenderer({
-          canvas: document.getElementById('viewer')
+        canvas: document.getElementById('viewer')
       });
-    }
-    catch(e){
+    } catch (e) {
       console.log(e);
       alert('This application needs WebGL enabled!');
       return false;
@@ -174,8 +175,8 @@ var RiftSandbox = (function () {
       this.renderer.setViewport(halfWidth, 0, halfWidth, this.height);
       this.renderer.render(this.scene, this.cameraRight);
     } else {
-      this.renderer.enableScissorTest ( false );
-      this.renderer.setViewport( 0, 0, this.width, this.height );
+      this.renderer.enableScissorTest(false);
+      this.renderer.setViewport(0, 0, this.width, this.height);
       this.renderer.render(this.scene, this.camera);
     }
   };
@@ -183,31 +184,47 @@ var RiftSandbox = (function () {
   constr.prototype.resize = function () {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-    this.renderer.setSize( this.width, this.height );
+    this.renderer.setSize(this.width, this.height);
   };
 
   function matrixFromOrientation(q, inverse) {
     var m = new Array(16);
 
-    var x = q.x, y = q.y, z = q.z, w = q.w;
+    var x = q.x,
+      y = q.y,
+      z = q.z,
+      w = q.w;
 
     // if inverse is given, invert the quaternion first
     if (inverse) {
-      x = -x; y = -y; z = -z;
-      var l = Math.sqrt(x*x + y*y + z*z + w*w);
+      x = -x;
+      y = -y;
+      z = -z;
+      var l = Math.sqrt(x * x + y * y + z * z + w * w);
       if (l === 0) {
         x = y = z = 0;
         w = 1;
       } else {
-        l = 1/l;
-        x *= l; y *= l; z *= l; w *= l;
+        l = 1 / l;
+        x *= l;
+        y *= l;
+        z *= l;
+        w *= l;
       }
     }
 
-    var x2 = x + x, y2 = y + y, z2 = z + z;
-    var xx = x * x2, xy = x * y2, xz = x * z2;
-    var yy = y * y2, yz = y * z2, zz = z * z2;
-    var wx = w * x2, wy = w * y2, wz = w * z2;
+    var x2 = x + x,
+      y2 = y + y,
+      z2 = z + z;
+    var xx = x * x2,
+      xy = x * y2,
+      xz = x * z2;
+    var yy = y * y2,
+      yz = y * z2,
+      zz = z * z2;
+    var wx = w * x2,
+      wy = w * y2,
+      wz = w * z2;
 
     m[0] = 1 - (yy + zz);
     m[4] = xy - wz;
@@ -240,11 +257,11 @@ var RiftSandbox = (function () {
   var cssCameraPositionTransform = function (position) {
     var CSS_POSITION_SCALE = -250;
     var transform = (
-        "translate3d(" +
-        (position.x * CSS_POSITION_SCALE) + "px, " +
-        (position.y * CSS_POSITION_SCALE) + "px, " +
-        (position.z * CSS_POSITION_SCALE) + "px" +
-        ") rotateZ(180deg) rotateY(180deg)");
+      "translate3d(" +
+      (position.x * CSS_POSITION_SCALE) + "px, " +
+      (position.y * CSS_POSITION_SCALE) + "px, " +
+      (position.z * CSS_POSITION_SCALE) + "px" +
+      ") rotateZ(180deg) rotateY(180deg)");
 
     return transform;
   };
@@ -254,7 +271,9 @@ var RiftSandbox = (function () {
   };
 
   constr.prototype.setHmdPositionRotation = function (vrState) {
-    if (!vrState) { return; }
+    if (!vrState) {
+      return;
+    }
     var rotation = vrState.orientation;
     var position = vrState.position;
     this.HMDRotation.set(rotation.x, rotation.y, rotation.z, rotation.w);
@@ -275,14 +294,14 @@ var RiftSandbox = (function () {
   };
 
   constr.prototype.toggleVrMode = function () {
-      this.vrMode = !this.vrMode;
-      this.cssCamera.style.transform = '';
+    this.vrMode = !this.vrMode;
+    this.cssCamera.style.transform = '';
   };
 
   constr.prototype.updateCameraPositionRotation = function () {
     this._move();
     if (!this.vrMode) {
-      this.camera.rotation.set(0 , this.plainRotation.y, 0);
+      this.camera.rotation.set(0, this.plainRotation.y, 0);
     }
     this.cameraPivot.quaternion.multiplyQuaternions(
       this.BaseRotation, this.HMDRotation);
@@ -302,8 +321,7 @@ var RiftSandbox = (function () {
   constr.prototype._move = function () {
     if (this._rampUp && this._velocity < this._targetVelocity) {
       this._velocity += this._rampRate;
-    }
-    else if (!this._rampUp && this._velocity > this._targetVelocity) {
+    } else if (!this._rampUp && this._velocity > this._targetVelocity) {
       this._velocity -= this._rampRate;
     }
     var movementVector = new THREE.Vector3(0, 0, -1);
