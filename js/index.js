@@ -107,7 +107,6 @@
  }());
 
  /** Logic in SketchController **/
-
  angular.module('index', [])
   .controller('SketchController', ['$scope',
    function ($scope) {
@@ -449,7 +448,7 @@
     this.deviceManager.init();
     this.mainLoop();
 
-    var updateCode = function (code) {
+    $scope.updateCode = function (code) {
      this.riftSandbox.clearScene();
      var _sketchLoop;
      $scope.error = null;
@@ -471,7 +470,7 @@
      localStorage.setItem('autosave', code);
     };
 
-    $scope.$watch('sketch.getCode()', updateCode.bind(this));
+    $scope.$watch('sketch.getCode()', $scope.updateCode.bind(this));
 
-  }]);
+  }]); // end controller
 }());
