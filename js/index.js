@@ -408,8 +408,9 @@
      }.bind(this), 'keyup');
      Mousetrap.bind('ctrl+enter', function () {
       // introduce delay
+      var code = $scope.sketch.getCode();
       setTimeout(function () {
-       $scope.updateCode($scope.sketch.getCode());
+       $scope.updateCode(code);
        $scope.$apply();
       }, 2000);
       return false;
