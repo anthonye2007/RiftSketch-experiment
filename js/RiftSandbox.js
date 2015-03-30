@@ -44,7 +44,7 @@ var RiftSandbox = (function () {
     this.cameraPivot.add(this.cameraRight);
 
     var maxAnisotropy = this.renderer.getMaxAnisotropy();
-    var groundTexture = THREE.ImageUtils.loadTexture('img/white.png');
+    var groundTexture = THREE.ImageUtils.loadTexture('img/background.png');
     groundTexture.anisotropy = maxAnisotropy;
     groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
     groundTexture.repeat.set(1000, 1000);
