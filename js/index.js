@@ -113,6 +113,10 @@
    function ($scope) {
     // TODO: lol, this controller is out of control. Refactor and maybe actually
     // use Angular properly.
+    
+    var bugout = new debugout();
+    $scope.bugout = bugout;
+    bugout.log('Environment: non-live');
 
     navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({
@@ -466,12 +470,12 @@
      try {
       /* jshint -W054 */
       var _sketchFunc = new Function(
-       'scene', 'camera', 'api',
+       'scene', 'camera', 'api', 'logger',
        '"use strict";\n' + code
       );
       /* jshint +W054 */
       _sketchLoop = _sketchFunc(
-       this.riftSandbox.scene, this.riftSandbox.cameraPivot, api);
+       this.riftSandbox.scene, this.riftSandbox.cameraPivot, api, $scope.bugout);
      } catch (err) {
       $scope.error = err.toString();
      }
