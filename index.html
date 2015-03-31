@@ -41,9 +41,8 @@
       </textarea>
       <button class="alert alert-info" ng-click="updateCode(sketch.getCode())">Update</button>
       
-      <button ng-click="bugout.log('Starting!!')">Start</button>
-      <button ng-click="bugout.log('Done')">Done</button>
-      <button ng-click="bugout.downloadLog()">Download log</button>
+      <button ng-click="bugout.log('\n\nStarting!!')">Start</button>
+      <button ng-click="finishLog();">Done</button>
       
       <span class="threed alert alert-warning" ng-show="error">{{error}}</span>
     </div>
