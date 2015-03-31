@@ -109,6 +109,12 @@
     var bugout = new debugout();
     $scope.bugout = bugout;
     bugout.log('Environment: no hand movement');
+    
+    $scope.finishLog = function() {
+     bugout.log('Done');
+     $scope.bugout.downloadLog();
+     $scope.bugout.clear();
+    }
 
     navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({
