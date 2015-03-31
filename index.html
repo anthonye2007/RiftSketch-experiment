@@ -37,13 +37,7 @@
     <div id="camera" class="threed" ng-show="is_editor_visible">
       <textarea class="threed mousetrap" ng-repeat="file in sketch.files" ng-model="file.contents" spellcheck="false">
       </textarea>
-      <span class="threed alert alert-info">
-          Alt + v - toggle VR | Alt + z - zero VR sensor<br />
-          Alt + e - toggle editor |
-          Alt + j/k, u/i, m/n - decrement or increment numbers
-        </span>
       <span class="threed alert alert-warning" ng-show="error">{{error}}</span>
-      <video id="monitor" class="threed" autoplay></video>
     </div>
   </div>
 
