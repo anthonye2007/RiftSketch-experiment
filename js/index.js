@@ -396,20 +396,6 @@
       return false;
      }.bind(this), 'keyup');
 
-     Mousetrap.bind('alt', function () {
-      if (this.altPressed) {
-       return false;
-      }
-      var start = this.textarea.selectionStart;
-      $scope.sketch.files[0].recordOriginalNumberAt(start);
-      this.handStart = this.handCurrent;
-      this.altPressed = true;
-      return false;
-     }.bind(this), 'keydown');
-     Mousetrap.bind('alt', function () {
-      this.altPressed = false;
-      return false;
-     }.bind(this), 'keyup');
     }.bind(this);
     this.bindKeyboardShortcuts();
 
