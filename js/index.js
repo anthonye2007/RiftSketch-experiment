@@ -105,6 +105,10 @@
    function ($scope) {
     // TODO: lol, this controller is out of control. Refactor and maybe actually
     // use Angular properly.
+    
+    var bugout = new debugout();
+    $scope.bugout = bugout;
+    bugout.log('Environment: vertical hand movement');
 
     navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({
@@ -166,18 +170,6 @@
       });
       this.riftSandbox.setBaseRotation();
       this.riftSandbox.updateCameraPositionRotation();
-     }
-
-     /*if (iCounter % 500 === 0) {
-      console.log("Scenestuff length: " + this.riftSandbox.sceneStuff.length);
-      console.log(this.riftSandbox.sceneStuff[0]);
-     }
-     iCounter++;*/
-
-     for (var i = 0; i < this.riftSandbox.sceneStuff.length; i++) {
-      if (this.riftSandbox.sceneStuff[i].name) {
-       console.log(this.riftSandbox.sceneStuff[i].name);
-      }
      }
 
      try {
@@ -460,12 +452,12 @@
      try {
       /* jshint -W054 */
       var _sketchFunc = new Function(
-       'scene', 'camera', 'api',
+       'scene', 'camera', 'api', 'logger',
        '"use strict";\n' + code
       );
       /* jshint +W054 */
       _sketchLoop = _sketchFunc(
-       this.riftSandbox.scene, this.riftSandbox.cameraPivot, api);
+       this.riftSandbox.scene, this.riftSandbox.cameraPivot, api, $scope.bugout);
      } catch (err) {
       $scope.error = err.toString();
      }
