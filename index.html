@@ -40,8 +40,8 @@
       <textarea class="threed mousetrap" ng-repeat="file in sketch.files" ng-model="file.contents" spellcheck="false">
       </textarea>
       
-      <button ng-click="bugout.log('\n\nStarting!!')">Start</button>
-      <button ng-click="finishLog();">Done</button>
+      <button ng-hide="running === true" ng-click="running = true; bugout.log('\n\nStarting!!');">Start</button>
+      <button ng-show="running === true" ng-click="running = false; finishLog();">Done</button>
       
       <span class="threed alert alert-warning" ng-show="error">{{error}}</span>
     </div>
