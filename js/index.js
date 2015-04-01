@@ -419,10 +419,11 @@
      Mousetrap.bind('ctrl+enter', function () {
       // introduce delay
       var code = $scope.sketch.getCode();
+      var averageRefreshTime = 1200;
       setTimeout(function () {
        $scope.updateCode(code);
        $scope.$apply();
-      }, 2000);
+      }, averageRefreshTime); // simulate a refresh
       return false;
      }.bind(this), 'keyup');
     }.bind(this);
