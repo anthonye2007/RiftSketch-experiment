@@ -41,8 +41,8 @@
       </textarea>
       <button class="alert alert-info" ng-click="updateCode(sketch.getCode())">Update</button>
       
-      <button ng-click="bugout.log('\n\nStarting!!')">Start</button>
-      <button ng-click="finishLog();">Done</button>
+      <button ng-hide="running === true" ng-click="running = true; bugout.log('\n\nStarting!!');">Start</button>
+      <button ng-show="running === true" ng-click="running = false; finishLog();">Done</button>
       
       <span class="threed alert alert-warning" ng-show="error">{{error}}</span>
     </div>
