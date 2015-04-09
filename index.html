@@ -39,7 +39,7 @@
     <div id="camera" class="threed" ng-show="is_editor_visible">
       <textarea class="threed mousetrap" ng-repeat="file in sketch.files" ng-model="file.contents" spellcheck="false">
       </textarea>
-      <button class="alert alert-info" ng-click="updateCode(sketch.getCode())">Update</button>
+      <!--<button class="alert alert-info" ng-click="updateCode(sketch.getCode())">Update</button>-->
       
       <button ng-hide="running === true" ng-click="running = true; bugout.log('\n\nStarting!!');">Start</button>
       <button ng-show="running === true" ng-click="running = false; finishLog();">Done</button>
